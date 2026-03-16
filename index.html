@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noetic Spaces — Interior Design in Lisbon & Beyond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f0ece4;
+    --warm-white: #f7f4ef;
+    --navy: #1e3040;
+    --slate: #4a5e6e;
+    --muted: #8a9ba8;
+    --rust: #c4603a;
+    --sand: #d4c5a9;
+    --dark: #161616;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--navy);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+    background: var(--cream);
+    transition: padding 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  nav.scrolled {
+    padding: 18px 60px;
+    box-shadow: 0 1px 0 rgba(30,48,64,0.08);
+  }
+
+  .nav-logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    color: var(--navy);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 44px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--navy);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: var(--navy);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a.active::after {
+    transform: scaleX(1);
+  }
+
+  /* ─── PAGES ─── */
+  .page {
+    display: none;
+    min-height: 100vh;
+    padding-top: 90px;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── HOME ─── */
+  #home {
+    display: none;
+    flex-direction: column;
+  }
+  #home.active { display: flex; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    min-height: calc(100vh - 90px);
+    gap: 0;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px 80px 60px;
+  }
+
+  .arch-icon {
+    width: 44px;
+    margin-bottom: 40px;
+    opacity: 0.75;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 72px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin-bottom: 32px;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--slate);
+    margin-bottom: 60px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--navy);
+    cursor: pointer;
+    border-bottom: 1px solid var(--navy);
+    padding-bottom: 4px;
+    width: fit-content;
+    transition: gap 0.2s ease;
+    background: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .hero-cta:hover { gap: 20px; }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--cream) 0%, transparent 15%);
+  }
+
+  /* Intro strip */
+  .intro-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-top: 1px solid var(--sand);
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .intro-item {
+    padding: 48px 60px;
+    border-right: 1px solid var(--sand);
+  }
+
+  .intro-item:last-child { border-right: none; }
+
+  .intro-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .intro-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  /* Services teaser */
+  .services-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--sand);
+    margin-top: 2px;
+  }
+
+  .service-card {
+    background: var(--warm-white);
+    padding: 64px 60px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover { background: var(--navy); }
+
+  .service-card:hover .service-title,
+  .service-card:hover .service-desc,
+  .service-card:hover .service-num { color: var(--cream); }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 300;
+    color: var(--sand);
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    margin-bottom: 16px;
+    transition: color 0.3s;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--slate);
+    max-width: 360px;
+    transition: color 0.3s;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 60px;
+    align-items: start;
+  }
+
+  .about-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 48px;
+    color: var(--navy);
+  }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--slate);
+    margin-bottom: 24px;
+  }
+
+  .about-text p:first-of-type {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--navy);
+  }
+
+  .about-img-wrap {
+    position: relative;
+  }
+
+  .about-img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .about-tag {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--navy);
+    color: var(--cream);
+    padding: 20px 28px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1.7;
+  }
+
+  .about-email {
+    display: inline-block;
+    margin-top: 48px;
+    font-size: 13px;
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* ─── WORK ─── */
+  .work-header {
+    padding: 60px 60px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .work-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+  }
+
+  .project-section {
+    padding: 60px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .project-location {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 24px;
+  }
+
+  .project-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  .project-grid-2-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  .project-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  .project-img {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    background: var(--sand);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-img-tall { aspect-ratio: 3/4; }
+  .project-img-wide { aspect-ratio: 16/9; }
+
+  .img-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--sand);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  /* ─── STAGING ─── */
+  .staging-hero {
+    padding: 80px 60px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .staging-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .staging-hero h1 em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .staging-hero p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--slate);
+    margin-bottom: 40px;
+  }
+
+  .staging-hero-img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+  }
+
+  .staging-process {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 80px 60px;
+  }
+
+  .staging-process h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 60px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .process-step {}
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 56px;
+    font-weight: 300;
+    color: var(--rust);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .step-title {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    color: var(--cream);
+  }
+
+  .step-desc {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(240,236,228,0.6);
+  }
+
+  .staging-packages {
+    padding: 80px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .staging-packages h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .staging-packages .subtitle {
+    color: var(--muted);
+    margin-bottom: 60px;
+    font-size: 15px;
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--sand);
+  }
+
+  .package-card {
+    background: var(--warm-white);
+    padding: 48px 40px;
+    transition: background 0.3s;
+  }
+
+  .package-card:hover { background: var(--navy); }
+  .package-card:hover * { color: var(--cream) !important; }
+
+  .package-card.featured {
+    background: var(--navy);
+  }
+
+  .package-card.featured * { color: var(--cream) !important; }
+  .package-card.featured:hover { background: var(--rust); }
+
+  .pkg-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+
+  .pkg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--navy);
+    margin-bottom: 8px;
+    transition: color 0.3s;
+  }
+
+  .pkg-scope {
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    transition: color 0.3s;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .pkg-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pkg-features li {
+    font-size: 13px;
+    color: var(--slate);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+    transition: color 0.3s;
+  }
+
+  .pkg-features li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+  }
+
+  .staging-note {
+    padding: 60px 60px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .staging-note blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--navy);
+    border-left: 2px solid var(--rust);
+    padding-left: 32px;
+  }
+
+  .staging-note-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--slate);
+    margin-bottom: 16px;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 90px);
+  }
+
+  .contact-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .contact-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 40px;
+  }
+
+  .contact-left h1 em {
+    font-style: italic;
+    display: block;
+    color: var(--rust);
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 32px; }
+
+  .contact-item-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .contact-item-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  a.contact-item-value:hover { text-decoration: underline; }
+
+  .contact-right {
+    background: var(--navy);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .contact-right h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--cream);
+    margin-bottom: 48px;
+  }
+
+  .form-group { margin-bottom: 28px; }
+
+  .form-group label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(240,236,228,0.5);
+    margin-bottom: 10px;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(240,236,228,0.25);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 10px 0;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .form-group select { cursor: pointer; }
+  .form-group select option { background: var(--navy); color: var(--cream); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-bottom-color: var(--cream);
+  }
+
+  .form-group textarea {
+    resize: none;
+    height: 80px;
+  }
+
+  .form-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+    background: var(--cream);
+    color: var(--navy);
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, gap 0.2s;
+  }
+
+  .form-submit:hover {
+    background: var(--rust);
+    color: var(--cream);
+    gap: 20px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--sand);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    color: var(--navy);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  .footer-email {
+    font-size: 13px;
+    color: var(--navy);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* ─── FAKE IMAGES using CSS gradients ─── */
+  .img-lisbon-1 { background: linear-gradient(135deg, #c4603a 0%, #8a4a2e 30%, #d4b896 60%, #c4603a 100%); }
+  .img-lisbon-2 { background: linear-gradient(150deg, #4a5e6e 0%, #8a9ba8 40%, #d4c5a9 80%, #4a5e6e 100%); }
+  .img-perth { background: linear-gradient(120deg, #5a6e4a 0%, #8a9e6e 40%, #d4c5a9 80%); }
+  .img-london { background: linear-gradient(140deg, #c4a882 0%, #d4c5a9 40%, #f0ece4 100%); }
+  .img-bedroom { background: linear-gradient(130deg, #2e3e4a 0%, #4a5e6e 40%, #8a9ba8 100%); }
+  .img-office { background: linear-gradient(150deg, #8a6040 0%, #c4a882 50%, #d4c5a9 100%); }
+  .img-piano { background: linear-gradient(160deg, #161616 0%, #2e2e2e 40%, #4a3e30 100%); }
+  .img-hero { background: linear-gradient(140deg, #c4a882 0%, #d4b896 30%, #8a9ba8 60%, #4a5e6e 100%); }
+  .img-staging { background: linear-gradient(130deg, #d4c5a9 0%, #c4a882 40%, #8a6040 100%); }
+  .img-ai { background: linear-gradient(140deg, #4a5e6e 0%, #8a9ba8 40%, #c4a882 100%); }
+
+  /* Rounded corners for project images */
+  .proj-frame {
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .proj-frame.tall { aspect-ratio: 3/4; }
+  .proj-frame.wide { aspect-ratio: 16/9; }
+  .proj-frame.square { aspect-ratio: 1; }
+
+  .img-fill {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* ─── HAMBURGER MENU ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--navy);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--cream);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .nav-mobile-menu.open { display: flex; }
+
+  .nav-mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--navy);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .nav-mobile-menu a:hover,
+  .nav-mobile-menu a.active { color: var(--rust); }
+
+  /* ─── TABLET (max 900px) ─── */
+  @media (max-width: 900px) {
+    nav { padding: 20px 28px; }
+    nav.scrolled { padding: 16px 28px; }
+
+    .nav-hamburger { display: flex; }
+    .nav-links { display: none; }
+
+    /* HOME */
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left {
+      padding: 100px 28px 48px;
+      order: 1;
+    }
+    .hero-right {
+      order: 0;
+      height: 55vw;
+      min-height: 260px;
+    }
+    .hero-title { font-size: 52px; }
+    .hero-tagline { font-size: 18px; margin-bottom: 40px; }
+
+    .intro-strip { grid-template-columns: 1fr 1fr; }
+    .intro-item { padding: 32px 28px; border-right: 1px solid var(--sand); }
+    .intro-item:nth-child(2) { border-right: none; }
+    .intro-item:nth-child(3) { border-top: 1px solid var(--sand); border-right: none; }
+    .intro-value { font-size: 22px; }
+
+    .services-teaser { grid-template-columns: 1fr; }
+    .service-card { padding: 48px 28px; }
+    .service-num { font-size: 60px; top: 14px; right: 28px; }
+
+    /* ABOUT */
+    .about-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px 28px 60px;
+      margin: 0;
+    }
+    .about-text h1 { font-size: 44px; }
+    .about-img-wrap { max-width: 380px; }
+
+    /* WORK */
+    .work-header { padding: 40px 28px 28px; }
+    .work-header h1 { font-size: 44px; }
+    .project-section { padding: 20px 28px 40px; }
+    .project-grid-2 { grid-template-columns: 1fr; }
+    .project-grid-3 { grid-template-columns: 1fr 1fr; }
+
+    /* STAGING */
+    .staging-hero {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 48px 28px 40px;
+      margin: 0;
+    }
+    .staging-hero h1 { font-size: 52px; }
+    .staging-process { padding: 60px 28px; }
+    .staging-process h2 { font-size: 36px; margin-bottom: 40px; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .staging-packages { padding: 60px 28px; }
+    .staging-packages h2 { font-size: 36px; }
+    .packages-grid { grid-template-columns: 1fr; }
+    .staging-note { grid-template-columns: 1fr; padding: 40px 28px 60px; gap: 40px; }
+    .staging-note blockquote { font-size: 26px; }
+
+    /* CONTACT */
+    .contact-layout { grid-template-columns: 1fr; }
+    .contact-left { padding: 100px 28px 48px; }
+    .contact-left h1 { font-size: 52px; margin-top: 0; }
+    .contact-right { padding: 48px 28px 60px; }
+    .contact-right h2 { font-size: 32px; }
+
+    /* FOOTER */
+    footer { flex-direction: column; gap: 10px; text-align: center; padding: 28px 24px; }
+  }
+
+  /* ─── MOBILE (max 600px) ─── */
+  @media (max-width: 600px) {
+    nav { padding: 18px 20px; }
+
+    .hero-right { height: 65vw; }
+    .hero-left { padding: 80px 20px 40px; }
+    .hero-title { font-size: 40px; }
+    .hero-tagline { font-size: 16px; margin-bottom: 32px; }
+
+    .intro-strip { grid-template-columns: 1fr; }
+    .intro-item {
+      padding: 24px 20px;
+      border-right: none !important;
+      border-bottom: 1px solid var(--sand);
+    }
+    .intro-item:last-child { border-bottom: none; }
+    .intro-value { font-size: 20px; }
+
+    .service-card { padding: 40px 20px; }
+
+    .about-layout { padding: 32px 20px 48px; }
+    .about-text h1 { font-size: 36px; margin-bottom: 28px; }
+    .about-text p { font-size: 14px; }
+
+    .work-header { padding: 32px 20px 20px; }
+    .work-header h1 { font-size: 36px; }
+    .project-section { padding: 16px 20px 32px; }
+    .project-grid-3 { grid-template-columns: 1fr; }
+
+    .staging-hero { padding: 40px 20px 32px; }
+    .staging-hero h1 { font-size: 40px; }
+    .staging-hero p { font-size: 14px; }
+    .staging-process { padding: 48px 20px; }
+    .staging-process h2 { font-size: 30px; }
+    .process-steps { grid-template-columns: 1fr; gap: 36px; }
+    .step-num { font-size: 44px; }
+    .staging-packages { padding: 48px 20px; }
+    .staging-packages h2 { font-size: 30px; }
+    .package-card { padding: 36px 24px; }
+    .staging-note { padding: 36px 20px 48px; }
+    .staging-note blockquote { font-size: 22px; padding-left: 20px; }
+
+    .contact-left { padding: 80px 20px 40px; }
+    .contact-left h1 { font-size: 40px; }
+    .contact-right { padding: 40px 20px 48px; }
+
+    footer { padding: 24px 20px; font-size: 11px; }
+    .footer-copy { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <span class="nav-logo" onclick="showPage('home')">noetic spaces</span>
+  <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home">Home</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+    <li><a onclick="showPage('work')" id="nav-work">Work</a></li>
+    <li><a onclick="showPage('staging')" id="nav-staging">Staging</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════ MOBILE MENU ══════════ -->
+<div id="mobile-menu" class="nav-mobile-menu">
+  <a onclick="showPage('home');toggleMenu()" id="mnav-home">Home</a>
+  <a onclick="showPage('about');toggleMenu()" id="mnav-about">About</a>
+  <a onclick="showPage('work');toggleMenu()" id="mnav-work">Work</a>
+  <a onclick="showPage('staging');toggleMenu()" id="mnav-staging">Staging</a>
+  <a onclick="showPage('contact');toggleMenu()" id="mnav-contact">Contact</a>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active" style="padding-top:0">
+
+  <section class="hero">
+    <div class="hero-left" style="padding-top: 120px;">
+      <svg class="arch-icon" viewBox="0 0 44 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 56V22C4 10.954 12.954 2 24 2C35.046 2 44 10.954 44 22V56" stroke="#1e3040" stroke-width="1.5" fill="none"/>
+        <path d="M10 56V22C10 14.268 16.268 8 24 8C31.732 8 38 14.268 38 22V56" stroke="#1e3040" stroke-width="1" opacity="0.3" fill="none"/>
+      </svg>
+      <h1 class="hero-title">Design<br>for living<br><em style="font-style:italic; color: var(--slate);">deeply.</em></h1>
+      <p class="hero-tagline">interior design in lisbon & beyond</p>
+      <button class="hero-cta" onclick="showPage('work')">View our work &nbsp;→</button>
+    </div>
+    <div class="hero-right">
+      <div class="img-fill img-hero" style="height:100%"></div>
+      <div class="hero-img-overlay"></div>
+    </div>
+  </section>
+
+  <section class="intro-strip">
+    <div class="intro-item">
+      <p class="intro-label">Approach</p>
+      <p class="intro-value">Neuroarchitecture<br>& sensory design</p>
+    </div>
+    <div class="intro-item">
+      <p class="intro-label">Based in</p>
+      <p class="intro-value">Lisbon, PT<br>working globally</p>
+    </div>
+    <div class="intro-item">
+      <p class="intro-label">Speciality</p>
+      <p class="intro-value">Calm, characterful<br>spaces</p>
+    </div>
+  </section>
+
+  <section class="services-teaser">
+    <div class="service-card" onclick="showPage('work')">
+      <span class="service-num">01</span>
+      <h3 class="service-title">Interior Design</h3>
+      <p class="service-desc">Full-service residential and commercial design, from concept through to completion. Every space grounded in how you actually live.</p>
+    </div>
+    <div class="service-card" onclick="showPage('staging')">
+      <span class="service-num">02</span>
+      <h3 class="service-title">Property Staging</h3>
+      <p class="service-desc">Strategic styling for properties going to market. We create spaces that feel both aspirational and liveable — helping buyers fall in love.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<div id="page-about" class="page">
+
+  <div class="about-layout">
+    <div class="about-text">
+      <h1>Hello, I'm<br><em style="font-style:italic">Ai Ling.</em></h1>
+      <p>An interior designer based in Lisbon, working at the intersection of neuroarchitecture, sensory design, and the quiet beauty of everyday life.</p>
+      <p>Since childhood, I've been fascinated by how our surroundings influence mood, thought, and connection. Living in London, Berlin, and now Lisbon has shaped my eye for calm, characterful spaces that hold warmth amid the rhythm of daily life.</p>
+      <p>Noetic Spaces was born from my interest in neuroarchitecture and sensory design, and from working alongside neurodivergent individuals and families. My approach balances stimulation with restfulness, guided by my Singaporean upbringing and the principles of Feng Shui — the grounding power of flow, natural textures, and earth tones.</p>
+      <p>Beyond form and function, I see design as a dialogue between the visible and the unseen. Through collaborations with emerging artists, locally sourced materials, and independent makers, I create spaces that nurture belonging while honouring the diverse voices and stories that shape our shared environments.</p>
+      <p>I look forward to designing a space that feels grounding every time you step inside — and a place that reflects who you are and how you wish to live.</p>
+      <a class="about-email" href="/cdn-cgi/l/email-protection#78101d1414173816171d0c111b0b08191b1d0b561b1715"><span class="__cf_email__" data-cfemail="69010c0505062907060c1d000a1a19080a0c1a470a0604">[email&#160;protected]</span></a>
+    </div>
+    <div class="about-img-wrap">
+      <div style="border-radius:4px; overflow:hidden; aspect-ratio: 3/4;">
+        <div class="img-fill img-ai" style="height:100%"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ WORK ══════════ -->
+<div id="page-work" class="page">
+
+  <div class="work-header">
+    <h1>Selected Work</h1>
+  </div>
+
+  <div class="project-section">
+    <p class="project-location">Lisbon, Portugal</p>
+    <div class="project-grid-2">
+      <div class="proj-frame">
+        <div class="img-fill img-lisbon-1"></div>
+      </div>
+      <div class="proj-frame">
+        <div class="img-fill img-lisbon-2"></div>
+      </div>
+    </div>
+
+    <p class="project-location">Perth, Scotland</p>
+    <div class="project-grid-2-1" style="max-width:700px">
+      <div class="proj-frame wide">
+        <div class="img-fill img-perth"></div>
+      </div>
+    </div>
+
+    <p class="project-location">London, UK</p>
+    <div class="project-grid-2-1" style="max-width:700px">
+      <div class="proj-frame wide">
+        <div class="img-fill img-london"></div>
+      </div>
+    </div>
+
+    <div class="project-grid-3">
+      <div class="proj-frame">
+        <div class="img-fill img-bedroom"></div>
+      </div>
+      <div class="proj-frame">
+        <div class="img-fill img-office"></div>
+      </div>
+      <div class="proj-frame">
+        <div class="img-fill img-piano"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ STAGING ══════════ -->
+<div id="page-staging" class="page">
+
+  <div class="staging-hero">
+    <div>
+      <h1>Staging<br><em>that sells</em><br>stories.</h1>
+      <p>Property staging is the art of helping buyers imagine their life in a space. We don't just style rooms — we craft a feeling of possibility, warmth, and belonging that lingers long after the viewing ends.</p>
+      <p>With roots in neuroarchitecture and sensory design, our staging considers how people experience space subconsciously — guiding attention, evoking calm, and creating the emotional conditions for a sale.</p>
+      <button class="hero-cta" onclick="showPage('contact')">Enquire about staging &nbsp;→</button>
+    </div>
+    <div style="border-radius:4px; overflow:hidden; aspect-ratio:4/3;">
+      <div class="img-fill img-staging" style="height:100%"></div>
+    </div>
+  </div>
+
+  <div class="staging-process">
+    <h2>How it works</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Consultation</div>
+        <p class="step-desc">We visit the property, assess what's there, and discuss your goals — timeline, buyer profile, and budget.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Proposal</div>
+        <p class="step-desc">A tailored staging plan, including what stays, what goes, what we bring in, and which spaces to prioritise.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Styling Day</div>
+        <p class="step-desc">We arrive with our curated inventory and spend the day transforming the property — typically completed in one session.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Photography</div>
+        <p class="step-desc">We coordinate with your photographer or can recommend trusted partners for listing and marketing materials.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="staging-packages">
+    <h2>Packages</h2>
+    <p class="subtitle">All packages include an initial consultation and deinstallation on completion of the sale.</p>
+    <div class="packages-grid">
+      <div class="package-card">
+        <p class="pkg-label">Package 01</p>
+        <h3 class="pkg-name">Refresh</h3>
+        <p class="pkg-scope">Key rooms only</p>
+        <ul class="pkg-features">
+          <li>Living room & entrance styling</li>
+          <li>Declutter & rearrange existing furniture</li>
+          <li>Curated accessories & soft furnishings</li>
+          <li>Ideal for occupied properties</li>
+        </ul>
+      </div>
+      <div class="package-card featured">
+        <p class="pkg-label">Package 02 — Most Popular</p>
+        <h3 class="pkg-name">Full Home</h3>
+        <p class="pkg-scope">Every room</p>
+        <ul class="pkg-features">
+          <li>All rooms styled throughout</li>
+          <li>Furniture sourced & hired if needed</li>
+          <li>Art, plants & layered textiles</li>
+          <li>Scent & sensory curation</li>
+          <li>Photography coordination</li>
+        </ul>
+      </div>
+      <div class="package-card">
+        <p class="pkg-label">Package 03</p>
+        <h3 class="pkg-name">Vacant</h3>
+        <p class="pkg-scope">Empty properties</p>
+        <ul class="pkg-features">
+          <li>Full furniture hire & installation</li>
+          <li>Complete room builds from scratch</li>
+          <li>Lighting sourced & positioned</li>
+          <li>Ongoing refresh between viewings</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="staging-note">
+    <blockquote>"Buyers don't just buy walls — they buy the life they imagine living inside them."</blockquote>
+    <div class="staging-note-text">
+      <p>Every staging project we take on is approached with the same care as a full design commission. We believe the way a space feels should never be an afterthought — whether you're selling or staying.</p>
+      <p>Based in Lisbon, we stage properties across Portugal and the UK, and are available for European projects on request.</p>
+      <button class="hero-cta" onclick="showPage('contact')" style="margin-top:12px">Get in touch &nbsp;→</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div id="page-contact" class="page" style="padding-top:0">
+
+  <div class="contact-layout">
+    <div class="contact-left">
+      <div>
+        <h1 style="margin-top:90px">Let's design<br><em>your space.</em></h1>
+        <p style="font-size:15px; color:var(--slate); line-height:2; max-width:400px; margin-bottom:60px">Whether you're renovating, moving, or preparing to sell — I'd love to hear about your project and explore how Noetic Spaces can help.</p>
+      </div>
+      <div class="contact-info">
+        <div>
+          <p class="contact-item-label">Email</p>
+          <a href="/cdn-cgi/l/email-protection#2e464b4242416e40414b5a474d5d5e4f4d4b5d004d4143" class="contact-item-value"><span class="__cf_email__" data-cfemail="c2aaa7aeaead82acada7b6aba1b1b2a3a1a7b1eca1adaf">[email&#160;protected]</span></a>
+        </div>
+        <div>
+          <p class="contact-item-label">Based in</p>
+          <p class="contact-item-value">Lisbon, Portugal</p>
+        </div>
+        <div>
+          <p class="contact-item-label">Working in</p>
+          <p class="contact-item-value">Portugal · UK · Europe</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h2>Send a message</h2>
+      <div class="form-group">
+        <label>Your name</label>
+        <input type="text" placeholder="First & last name">
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Enquiry type</label>
+        <select>
+          <option value="">Select one…</option>
+          <option>Interior Design</option>
+          <option>Property Staging</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your message</label>
+        <textarea placeholder="Tell me about your project…"></textarea>
+      </div>
+      <button class="form-submit">Send message &nbsp;→</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <span class="footer-logo">noetic spaces</span>
+  <span class="footer-copy">© 2025 Noetic Spaces. Interior Design in Lisbon & Beyond.</span>
+  <a href="/cdn-cgi/l/email-protection#741c1118181b341a1b11001d170704151711075a171b19" class="footer-email"><span class="__cf_email__" data-cfemail="1179747d7d7e517f7e746578726261707274623f727e7c">[email&#160;protected]</span></a>
+</footer>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    const mNav = document.getElementById('mnav-' + name);
+    if (mNav) mNav.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const btn = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  document.getElementById('nav-home').classList.add('active');
+  document.getElementById('mnav-home').classList.add('active');
+</script>
+</body>
+</html>
